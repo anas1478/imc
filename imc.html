@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <title>Document</title>
+</head>
+<style>
+    
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: rgb(19, 19, 19);
+    }
+
+    .text-center {
+        background-color: rgb(255, 255, 255);
+    }
+
+    
+</style>
+
+<body>
+    <div class="container text-center">
+        <div class="jumbotron jumbotron-fluid">
+            <h1 class="display-4">calculer votre IMC</h1>
+            <div class="container">
+
+                <p class="lead">L'indice de masse corporelle ou IMC (en anglais, body mass index ou BMI) est une
+                    grandeur qui permet d'estimer la corpulence d’une personne. Inventé par Adolphe Quetelet,
+                    mathématicien belge et l'un des fondateurs de la statistique moderne, cet indice est appelé aussi
+                    l'indice de Quetelet.
+
+                    Il se calcule en fonction de la taille et de la masse corporelle. Il a été conçu, au départ, pour
+                    les adultes de 18 à 65 ans, mais de nouveaux diagrammes de croissance ont vu le jour au cours des
+                    dernières décennies pour les enfants de 0 à 18 ans. Dans les deux cas, il constitue une indication
+                    et intervient dans le calcul de l'indice de masse grasse (IMG).</p>
+            </div>
+        </div>
+        <div class="row p-5">
+            <div class="col-6">
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">votre poids (kg)</label>
+                    <input type="number" class="form-control" id="poids" aria-describedby="emailHelp" value=""
+                        placeholder="Entrer votre poids">
+
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">votre taille (cm)</label>
+                    <input type="number" class="form-control" id="taille" placeholder="175cm = 1.75m" value="">
+                </div>
+                <button type="submit" class="btn btn-primary m-3 w-50" onclick="calculer()" id="clic">calculer</button>
+                <div id="error"></div>
+            </div>
+
+
+            <div class="col-6">
+                <div class="res">
+                    <h2 id="demo"></h2>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="container">
+                    <img src="imc.jpg" class="img-fluid" alt="Responsive image">
+               
+                <div class="progress mb-5 mt-1" >
+                    <div class="progress-bar" role="progressbar" id="style" aria-valuenow="40" aria-valuemin="0"
+                        aria-valuemax="100"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        // Event.preventDefault();
+        // poids.addEventListener("click",calculer());
+       
+        // if(characterCode == 13){
+        //     console.log('deffrgdfg');
+        // }
+        function calculer() {
+
+            var poids = Number(document.getElementById('poids').value);
+            var taille = Number(document.getElementById('taille').value);
+            var pro = document.getElementById('style');
+            var clic = document.getElementById('clic');
+            var res = document.getElementById('res');
+         
+            var imc = Number(poids / (taille * taille));
+            
+            var taille= Number(taille)/100;
+
+            // style.scrollIntoView();
+
+            // si on ajouter des element apres l'image changer window.scroll(0,2000) par style.scrollIntoView();
+            window.scroll(0,2000);
+
+            // document.getElementById("demo").innerHTML = Number(imc.toFixed(2)) + " d'IMC";
+
+            function progress() {
+                var imc = Number(poids / (taille * taille));
+                var progress = Number((100 / 22) * imc - ((18.5 * 100) / 22.4));
+
+                // console.log(imc);
+
+                if (isNaN(imc)) {
+                    document.getElementById("error").innerHTML = '<p class="alert alert-danger" role="alert"'+'>'+
+                        'veuiller enter que des chifres'+'</p>';
+
+                } else {
+                    document.getElementById("error").innerHTML ="";
+                    document.getElementById("demo").innerHTML = Number(imc.toFixed(2)) + " d'IMC";
+
+                    if (imc >= 40) {
+                        pro.style.width = "93%";
+                        pro.style.backgroundColor= 'red';
+                    }
+                    else if (imc <= 18.5) {
+                        pro.style.width = "8%";
+                        pro.style.backgroundColor= 'red';
+                    }
+                    else {
+
+                        pro.style.width = progress + "%";
+
+                        if(imc<35 || imc>30){
+                                pro.style.color="brown";
+                        }
+                        if(imc<25){
+                            pro.style.backgroundColor= 'green',"transition-duration: 5s";
+                        }
+                        else{
+                            pro.style.backgroundColor= 'orange';
+                        }
+                    }
+                }
+            }
+            progress();
+
+
+
+
+
+
+
+
+        }
+
+
+
+    </script>
+
+
+</body>
+
+</html>
